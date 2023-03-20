@@ -1,7 +1,7 @@
-package com.test.test_by_anh_phu.bai1.utils
+package com.example.postappcompose.utils
 
-import com.test.test_by_anh_phu.bai1.data.bai1.models.User
-import com.test.test_by_anh_phu.bai1.data.bai1.models.UserWithFavorite
+import com.example.postappcompose.data.models.User
+import com.example.postappcompose.data.models.UserWithFavorite
 
 object Constant {
     var userWithFavorite: UserWithFavorite = UserWithFavorite(
