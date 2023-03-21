@@ -2,25 +2,26 @@ package com.example.postappcompose.ui.component
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardCapitalization
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.example.postappcompose.ui.textstyle.textSmallWhite
+import com.example.postappcompose.ui.textstyle.TextStyleApp
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -28,14 +29,19 @@ fun EditText(
     modifier: Modifier = Modifier,
     text: String = "",
     onTextChange: (String) -> Unit,
-    label: String = "",
+    typeInput: KeyboardType = KeyboardType.Text,
     hint: String = "",
     errorText: String = "",
     isLastEditText: Boolean = false
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
 
-    Column {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentHeight(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         TextField(
             modifier = modifier
                 .border(
@@ -44,10 +50,11 @@ fun EditText(
                 )
                 .wrapContentHeight()
                 .fillMaxWidth(),
-            textStyle = TextStyle(
-                fontSize = 14.sp,
+            textStyle = TextStyleApp.TextColorWhite(
+                fontSize = 14,
+                textAlign = TextAlign.Start
             ),
-            onValueChange = {onTextChange(it)} ,
+            onValueChange = { onTextChange(it) },
             value = text,
             placeholder = {
                 Text(
@@ -65,6 +72,23 @@ fun EditText(
                 focusedIndicatorColor = Color.Transparent,
                 errorCursorColor = Color.Red
             ),
+            keyboardOptions = KeyboardOptions(
+                imeAction = if (isLastEditText) ImeAction.Done else ImeAction.Next,
+                keyboardType = typeInput,
+                capitalization = KeyboardCapitalization.Words
+            ),
+            keyboardActions = KeyboardActions(
+                onDone = {
+                    keyboardController?.hide()
+                },
+            )
+        )
+        Spacer(modifier = modifier.height(5.dp))
+        Text(
+            text = errorText,
+            style = TextStyleApp.textError,
+            modifier = Modifier
+                .padding(horizontal = 15.dp)
         )
     }
 }
@@ -72,5 +96,9 @@ fun EditText(
 @Composable
 @Preview("default")
 private fun PreviewEditText() {
-    EditText(onTextChange = {} , text = "TAs")
+    EditText(
+        onTextChange = {},
+        text = "TAs",
+        errorText = "error1231231231231232313123123123123123123123123123213123"
+    )
 }
