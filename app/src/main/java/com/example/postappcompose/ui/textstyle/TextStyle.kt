@@ -10,7 +10,7 @@ import androidx.compose.ui.unit.sp
 
 
 object TextStyleApp {
-    fun TextColorWhite(
+    fun textColorWhite(
         fontSize: Int = 13,
         textAlign: TextAlign = TextAlign.Center
     ) : TextStyle {
@@ -25,7 +25,7 @@ object TextStyleApp {
     }
     val textError = TextStyle(
         color = Color.Red,
-        fontSize = 12.sp,
+        fontSize = 14.sp,
         fontStyle = FontStyle.Italic,
         textAlign = TextAlign.Start,
         background = Color.Transparent,

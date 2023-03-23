@@ -1,6 +1,7 @@
 package com.example.postappcompose.ui.component
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -37,20 +38,19 @@ fun EditText(
     val keyboardController = LocalSoftwareKeyboardController.current
 
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .wrapContentHeight(),
+        modifier = modifier.background(Color.Transparent),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         TextField(
-            modifier = modifier
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight()
                 .border(
                     BorderStroke(width = 1.dp, color = Color.White),
                     shape = RoundedCornerShape(20.dp)
                 )
-                .wrapContentHeight()
-                .fillMaxWidth(),
-            textStyle = TextStyleApp.TextColorWhite(
+                .background(Color.Transparent),
+            textStyle = TextStyleApp.textColorWhite(
                 fontSize = 14,
                 textAlign = TextAlign.Start
             ),
@@ -62,6 +62,7 @@ fun EditText(
                     color = Color.White.copy(alpha = 0.5f)
                 )
             },
+            singleLine = true,
             colors = TextFieldDefaults.textFieldColors(
                 textColor = Color.White,
                 backgroundColor = Color.Transparent,
@@ -81,14 +82,16 @@ fun EditText(
                 onDone = {
                     keyboardController?.hide()
                 },
-            )
+            ),
         )
-        Spacer(modifier = modifier.height(5.dp))
+        Spacing(5)
         Text(
             text = errorText,
             style = TextStyleApp.textError,
             modifier = Modifier
-                .padding(horizontal = 15.dp)
+                .fillMaxWidth()
+                .wrapContentHeight()
+                .padding(horizontal = 10.dp)
         )
     }
 }

@@ -1,3 +1,71 @@
 <resources>
     <string name="app_name">PostAppCompose</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="twitter"><a href="https://tweetdeck.twitter.com/">Twitter Web App</a></string>
+
+    <!--    Description-->
+    <string name="avatar">Avatar</string>
+
+    <!--    MainActivity-->
+    <string name="btnBai1">Bai 1</string>
+    <string name="btnBai2">Bai 2</string>
+    <string name="btnBai3">Bai 3</string>
+
+    <!--    FragmentDialog-->
+    <string name="DialogBtnConfirm">Confirm</string>
+    <string name="DialogBtnNegative">Negative</string>
+
+    <!--    FragmentLogin-->
+    <string name="LoginTvWelcome">Welcome</string>
+    <string name="LoginTvNotification">Please Log into your existing  account</string>
+    <string name="LoginYourMail">Your Email</string>
+    <string name="LoginYourPass">Your Password</string>
+    <string name="LoginBtnLogin">Login</string>
+    <string name="LoginBtnSignUp">Sign up?</string>
+    <string name="LoginForgotPass">Forgot your password?</string>
+    <string name="LoginLoginSuccess">Login Success</string>
+    <string name="LoginLoginFail">Login Fail, Wrong Email or Password</string>
+
+    <!--    FragmentNewFeed-->
+    <string name="NewFeedTweet">Tweet</string>
+    <string name="NewFeedFavorite">Favorite</string>
+    <string name="NewFeedBackToPrevious">Back to Previous</string>
+    <string name="totalLike">liked</string>
+
+    <!--    FragmentSignUp-->
+    <string name="SignUpTvInfo">Please input information</string>
+    <string name="SignUpBtnSignUp">Sign Up</string>
+    <string name="SignUpMoveToLogin">Move to login</string>
+    <string name="SignUpCongratulations">Congratulations</string>
+    <string name="SignUpRegisterDone">You have successfully registered!!!</string>
+    <string name="SignUpCancel">Cancel</string>
+    <string name="SignUpExistsEmail">Existed Email %s</string>
+    <!--    // truyền là tham số trong hàm getString-->
+
+    <!--    Bottom Navigation-->
+    <string name="NaviHome">Home</string>
+    <string name="NaviFavorite">Favorite</string>
+
+    <!--    Title for home screen-->
+    <string name="HomeScreenTweet">Tweet</string>
+    <string name="HomeScreenFavorite">Favorite</string>
+    <string name="HomeScreenAddPost">Post Your Status</string>
+    <string name="HomeScreenDetail">Detail Post</string>
+    <string name="HomeScreenDetailUser">Detail Post</string>
+
+    <!--    add post-->
+    <string name="AddPostBtnAdd">Add Post</string>
+    <string name="AddPostYourFeeling">How are you today?</string>
+    <string name="AddPostTitle">Share your feeling</string>
+    <string name="AddPostNotification">Nothing to post</string>
+
+    <!--    music app-->
+    <string name="ErrorLoadMusic">Error when load Music</string>
+    <string name="PlayFrom">Album</string>
+    <string name="timeBegin">00:00</string>
+
+    <!--    music service-->
+    <string name="Next">Next</string>
+    <string name="Play">Play</string>
+    <string name="Previous">Previous</string>
 </resources>

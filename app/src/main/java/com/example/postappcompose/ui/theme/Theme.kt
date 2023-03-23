@@ -10,14 +10,16 @@ private val DarkColorPalette = PostColors(
     primary = Purple200,
     primaryVariant = Purple700,
     secondary = Teal200,
-    backgroundGradient = listOf(NavyBlue, NeonBlue, NavyBlue)
+    backgroundGradient = listOf(NavyBlue, NeonBlue, NavyBlue),
+    backgroundButton = listOf(HotMagenta, DarkViolet)
 )
 
 private val LightColorPalette = PostColors(
     primary = Purple500,
     primaryVariant = Purple700,
     secondary = Teal200,
-    backgroundGradient = listOf(NavyBlue, NeonBlue, NavyBlue)
+    backgroundGradient = listOf(NavyBlue, NeonBlue, NavyBlue),
+    backgroundButton = listOf(HotMagenta, DarkViolet)
     /* Other default colors to override
     background = Color.White,
     surface = Color.White,
@@ -27,6 +29,12 @@ private val LightColorPalette = PostColors(
     onSurface = Color.Black,
     */
 )
+
+object PostAppTheme {
+    val colors: PostColors
+        @Composable
+        get() = LocalPostColors.current
+}
 
 @Composable
 fun PostAppComposeTheme(
@@ -39,12 +47,14 @@ fun PostAppComposeTheme(
         LightColorPalette
     }
 
-    MaterialTheme(
-        colors = debugColors(darkTheme),
-        typography = Typography,
-        shapes = Shapes,
-        content = content
-    )
+    ProvidePostColors(colors = colors) {
+        MaterialTheme(
+            colors = debugColors(darkTheme),
+            typography = Typography,
+            shapes = Shapes,
+            content = content
+        )
+    }
 }
 
 @Stable
@@ -53,6 +63,7 @@ class PostColors(
     primaryVariant: Color,
     secondary: Color,
     backgroundGradient: List<Color>,
+    backgroundButton: List<Color>
 ) {
     var primary by mutableStateOf(primary)
         private set
@@ -62,19 +73,23 @@ class PostColors(
         private set
     var backgroundGradient by mutableStateOf(backgroundGradient)
         private set
+    var backgroundButton by mutableStateOf(backgroundButton)
+        private set
 
     fun update(other: PostColors) {
         primary = other.primary
         primaryVariant = other.primaryVariant
         secondary = other.secondary
         backgroundGradient = other.backgroundGradient
+        backgroundButton = other.backgroundButton
     }
 
     fun copy(): PostColors = PostColors(
         primary = primary,
         primaryVariant = primaryVariant,
         secondary = secondary,
-        backgroundGradient = backgroundGradient
+        backgroundGradient = backgroundGradient,
+        backgroundButton = backgroundButton
     )
 }
 
