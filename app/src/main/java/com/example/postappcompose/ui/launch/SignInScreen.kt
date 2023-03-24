@@ -26,11 +26,11 @@ import com.example.postappcompose.ui.textstyle.TextStyleApp.textColorWhite
 import com.example.postappcompose.ui.theme.PostAppTheme
 
 @Composable
-fun LoginScreen(
+fun SignInScreen(
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = modifier
+        modifier = Modifier
             .background(
                 Brush.verticalGradient(
                     PostAppTheme.colors.backgroundGradient
@@ -38,7 +38,8 @@ fun LoginScreen(
             )
             .verticalScroll(rememberScrollState())
             .fillMaxWidth()
-            .fillMaxHeight(),
+            .fillMaxHeight()
+            .then(modifier),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
@@ -71,7 +72,7 @@ fun LoginScreen(
             modifier = Modifier
                 .height(80.dp)
                 .fillMaxWidth()
-                .padding(horizontal = 20.dp),
+                .padding(horizontal = 30.dp),
             hint = stringResource(id = R.string.LoginYourMail),
             typeInput = KeyboardType.Email,
             errorText = "123"
@@ -85,7 +86,7 @@ fun LoginScreen(
             modifier = Modifier
                 .height(80.dp)
                 .fillMaxWidth()
-                .padding(horizontal = 20.dp),
+                .padding(horizontal = 30.dp),
             hint = stringResource(id = R.string.LoginYourPass),
             typeInput = KeyboardType.Password,
             errorText = "123",
@@ -97,7 +98,7 @@ fun LoginScreen(
 
             },
             modifier = Modifier
-                .padding(horizontal = 20.dp)
+                .padding(horizontal = 30.dp)
                 .height(54.dp)
                 .fillMaxWidth(),
             textBtn = stringResource(id = R.string.LoginBtnLogin),
@@ -119,5 +120,5 @@ fun LoginScreen(
 @Composable
 @Preview(showSystemUi = true, showBackground = true)
 fun PreviewLoginScreen() {
-    LoginScreen()
+    SignInScreen(modifier = Modifier)
 }
