@@ -1,11 +1,14 @@
 package com.example.postappcompose.ui.launch
 
+import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -22,10 +25,17 @@ import com.example.postappcompose.ui.theme.PostAppTheme
 
 @Composable
 fun SignUpScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onSignUpSuccess: () -> Unit,
+    onMoveToSignIn: () -> Unit,
+    launchViewModel: LaunchViewModel
 ) {
+    var email = remember {
+        launchViewModel.email.value
+    }
     Column(
         modifier = Modifier
+            .fillMaxSize()
             .background(
                 Brush.verticalGradient(
                     PostAppTheme.colors.backgroundGradient
@@ -47,13 +57,16 @@ fun SignUpScreen(
         Text(
             text = stringResource(id = R.string.LoginYourMail),
             style = TextStyleApp.textColorWhite(14, TextAlign.Start),
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp)
         )
         Spacing(10)
         EditText(
-            text = "",
+            text = email,
             onTextChange = {
-
+                email = it
+                Log.e("TTT", "SignUpScreen: ${launchViewModel.email.value}", )
             },
             modifier = Modifier
                 .height(80.dp)
@@ -66,7 +79,9 @@ fun SignUpScreen(
         Text(
             text = stringResource(id = R.string.LoginYourPass),
             style = TextStyleApp.textColorWhite(14, TextAlign.Start),
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp)
         )
         Spacing(10)
         EditText(
@@ -84,7 +99,7 @@ fun SignUpScreen(
         Spacing(70)
         SingleButton(
             onClick = {
-
+                onSignUpSuccess()
             },
             modifier = Modifier
                 .padding(horizontal = 30.dp)
@@ -95,6 +110,10 @@ fun SignUpScreen(
         )
         Spacing(30)
         Text(
+            modifier = Modifier
+                .clickable {
+                    onMoveToSignIn()
+                },
             text = stringResource(id = R.string.SignUpMoveToLogin),
             style = TextStyleApp.textColorWhite(13),
         )

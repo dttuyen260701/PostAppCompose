@@ -8,8 +8,8 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
-import com.example.postappcompose.ui.launch.SignInScreen
-import com.example.postappcompose.ui.launch.SignUpScreen
+import androidx.navigation.compose.rememberNavController
+import com.example.postappcompose.ui.navigate.PostNavHost
 import com.example.postappcompose.ui.theme.PostAppComposeTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,8 +27,10 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-//                    SignInScreen()
-                    SignUpScreen()
+                    val navController = rememberNavController()
+                    PostNavHost(
+                        navController = navController
+                    )
                 }
             }
         }

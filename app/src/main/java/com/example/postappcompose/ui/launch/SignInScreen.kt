@@ -1,11 +1,8 @@
 package com.example.postappcompose.ui.launch
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -27,10 +24,14 @@ import com.example.postappcompose.ui.theme.PostAppTheme
 
 @Composable
 fun SignInScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onSignInSuccess: () -> Unit,
+    onMoveToSignUp: () -> Unit,
+    launchViewModel: LaunchViewModel
 ) {
     Column(
         modifier = Modifier
+            .fillMaxSize()
             .background(
                 Brush.verticalGradient(
                     PostAppTheme.colors.backgroundGradient
@@ -95,7 +96,7 @@ fun SignInScreen(
         Spacing(20)
         SingleButton(
             onClick = {
-
+                onSignInSuccess()
             },
             modifier = Modifier
                 .padding(horizontal = 30.dp)
@@ -106,6 +107,10 @@ fun SignInScreen(
         )
         Spacing(20)
         Text(
+            modifier = Modifier
+                .clickable {
+                    onMoveToSignUp()
+                },
             text = stringResource(id = R.string.SignUpBtnSignUp),
             style = textColorWhite(13)
         )
@@ -120,5 +125,5 @@ fun SignInScreen(
 @Composable
 @Preview(showSystemUi = true, showBackground = true)
 fun PreviewLoginScreen() {
-    SignInScreen(modifier = Modifier)
+//    SignInScreen(modifier = Modifier,{}, {})
 }
