@@ -1,9 +1,11 @@
 package com.example.postappcompose.ui.navigate
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -13,6 +15,7 @@ import androidx.navigation.navigation
 import com.example.postappcompose.ui.launch.LaunchViewModel
 import com.example.postappcompose.ui.launch.SignInScreen
 import com.example.postappcompose.ui.launch.SignUpScreen
+import com.example.postappcompose.ui.newfeed.addpost.AddPostScreen
 import com.example.postappcompose.ui.newfeed.home.NewFeedScreen
 
 
@@ -58,7 +61,6 @@ fun PostNavHost(
                 signUpEntry
             )
 
-
             SignUpScreen(
                 onSignUpSuccess = {
                     navController.navigateUp()
@@ -71,11 +73,23 @@ fun PostNavHost(
         }
 
         navigation(
-            startDestination = NewFeedView.route,
+            startDestination = (PostTabs.TWEET.route),
             route = NewFeedRoute.route
         ) {
-            composable(NewFeedView.route) {
-                NewFeedScreen()
+            composable(PostTabs.TWEET.route) {
+                NewFeedScreen(
+                    Modifier.background(Color.Red)
+                )
+            }
+
+            composable(PostTabs.FAVORITE.route) {
+                NewFeedScreen(
+                    Modifier.background(Color.Green)
+                )
+            }
+
+            composable(AddPost.route) {
+                AddPostScreen()
             }
         }
     }

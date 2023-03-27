@@ -7,17 +7,17 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
 
 private val DarkColorPalette = PostColors(
-    primary = Purple200,
+    primary = NavyBlue,
     primaryVariant = Purple700,
-    secondary = Teal200,
+    secondary = NavyBlue,
     backgroundGradient = listOf(NavyBlue, NeonBlue, NavyBlue),
     backgroundButton = listOf(HotMagenta, DarkViolet)
 )
 
 private val LightColorPalette = PostColors(
-    primary = Purple500,
+    primary = NavyBlue,
     primaryVariant = Purple700,
-    secondary = Teal200,
+    secondary = NavyBlue,
     backgroundGradient = listOf(NavyBlue, NeonBlue, NavyBlue),
     backgroundButton = listOf(HotMagenta, DarkViolet)
     /* Other default colors to override
