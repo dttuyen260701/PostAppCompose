@@ -1,15 +1,20 @@
 package com.example.postappcompose.ui.launch
 
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -21,6 +26,7 @@ import com.example.postappcompose.ui.component.SingleButton
 import com.example.postappcompose.ui.component.Spacing
 import com.example.postappcompose.ui.textstyle.TextStyleApp.textColorWhite
 import com.example.postappcompose.ui.theme.PostAppTheme
+import com.example.postappcompose.utils.Constant
 
 @Composable
 fun SignInScreen(
@@ -29,6 +35,26 @@ fun SignInScreen(
     onMoveToSignUp: () -> Unit,
     launchViewModel: LaunchViewModel
 ) {
+    val context = LocalContext.current
+    val email = remember {
+        LaunchViewModel.email
+    }
+    val emailError = remember {
+        derivedStateOf {
+            launchViewModel.validEmail(email.value)
+        }
+    }
+    val password = remember {
+        LaunchViewModel.password
+    }
+    val passwordError = remember {
+        derivedStateOf {
+            launchViewModel.validPassWord(password.value)
+        }
+    }
+    val firstClick = remember {
+        launchViewModel.firstClickButton
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -66,9 +92,9 @@ fun SignInScreen(
         )
         Spacing(50)
         EditText(
-            text = "",
+            text = email.value,
             onTextChange = {
-
+                email.value = it
             },
             modifier = Modifier
                 .height(80.dp)
@@ -76,13 +102,13 @@ fun SignInScreen(
                 .padding(horizontal = 30.dp),
             hint = stringResource(id = R.string.LoginYourMail),
             typeInput = KeyboardType.Email,
-            errorText = "123"
+            errorText = emailError.value
         )
         Spacing(10)
         EditText(
-            text = "",
+            text = password.value,
             onTextChange = {
-
+                password.value = it
             },
             modifier = Modifier
                 .height(80.dp)
@@ -90,13 +116,39 @@ fun SignInScreen(
                 .padding(horizontal = 30.dp),
             hint = stringResource(id = R.string.LoginYourPass),
             typeInput = KeyboardType.Password,
-            errorText = "123",
+            errorText = passwordError.value,
             isLastEditText = true
         )
         Spacing(20)
         SingleButton(
             onClick = {
-                onSignInSuccess()
+                firstClick.value = false
+                if(emailError.value == "" && passwordError.value == "") {
+                    launchViewModel.loginUser(
+                        email = email.value,
+                        pass = password.value,
+                        onStart = {
+
+                        },
+                        onResult = {result ->
+                            if(result != null) {
+                                Constant.userWithFavorite = result
+                                Toast.makeText(
+                                    context,
+                                    R.string.LoginLoginSuccess,
+                                    Toast.LENGTH_LONG
+                                ).show()
+                                onSignInSuccess()
+                            } else {
+                                Toast.makeText(
+                                    context,
+                                    R.string.LoginLoginFail,
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+                        }
+                    )
+                }
             },
             modifier = Modifier
                 .padding(horizontal = 30.dp)

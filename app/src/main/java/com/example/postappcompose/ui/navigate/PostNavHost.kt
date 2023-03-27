@@ -9,9 +9,11 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navigation
 import com.example.postappcompose.ui.launch.LaunchViewModel
 import com.example.postappcompose.ui.launch.SignInScreen
 import com.example.postappcompose.ui.launch.SignUpScreen
+import com.example.postappcompose.ui.newfeed.home.NewFeedScreen
 
 
 @Composable
@@ -31,10 +33,11 @@ fun PostNavHost(
             val launchViewModel = hiltViewModel<LaunchViewModel>(
                 signInEntry
             )
-
             SignInScreen(
                 onSignInSuccess = {
-
+                    navController.navigate(NewFeedRoute.route) {
+                        popUpTo(SignInView.route) { inclusive = true }
+                    }
                 },
                 onMoveToSignUp = {
                     navController.navigate(SignUpView.route)
@@ -58,13 +61,22 @@ fun PostNavHost(
 
             SignUpScreen(
                 onSignUpSuccess = {
-
+                    navController.navigateUp()
                 },
                 onMoveToSignIn = {
                     navController.navigateUp()
                 },
                 launchViewModel = launchViewModel
             )
+        }
+
+        navigation(
+            startDestination = NewFeedView.route,
+            route = NewFeedRoute.route
+        ) {
+            composable(NewFeedView.route) {
+                NewFeedScreen()
+            }
         }
     }
 }

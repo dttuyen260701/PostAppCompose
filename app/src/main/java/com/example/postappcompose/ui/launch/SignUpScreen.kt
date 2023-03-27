@@ -8,6 +8,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,6 +18,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.postappcompose.R
+import com.example.postappcompose.data.models.User
 import com.example.postappcompose.ui.component.EditText
 import com.example.postappcompose.ui.component.SingleButton
 import com.example.postappcompose.ui.component.Spacing
@@ -30,8 +32,24 @@ fun SignUpScreen(
     onMoveToSignIn: () -> Unit,
     launchViewModel: LaunchViewModel
 ) {
-    var email = remember {
-        launchViewModel.email.value
+    val email = remember {
+        LaunchViewModel.email
+    }
+    val emailError = remember {
+        derivedStateOf {
+            launchViewModel.validEmail(email.value)
+        }
+    }
+    val password = remember {
+        LaunchViewModel.password
+    }
+    val passwordError = remember {
+        derivedStateOf {
+            launchViewModel.validPassWord(password.value)
+        }
+    }
+    val firstClick = remember {
+        launchViewModel.firstClickButton
     }
     Column(
         modifier = Modifier
@@ -63,17 +81,16 @@ fun SignUpScreen(
         )
         Spacing(10)
         EditText(
-            text = email,
+            text = email.value,
             onTextChange = {
-                email = it
-                Log.e("TTT", "SignUpScreen: ${launchViewModel.email.value}", )
+                email.value = it
             },
             modifier = Modifier
                 .height(80.dp)
                 .fillMaxWidth()
                 .padding(horizontal = 30.dp),
             typeInput = KeyboardType.Email,
-            errorText = "123"
+            errorText = emailError.value
         )
         Spacing(30)
         Text(
@@ -85,21 +102,35 @@ fun SignUpScreen(
         )
         Spacing(10)
         EditText(
-            text = "",
+            text = password.value,
             onTextChange = {
-
+                password.value = it
             },
             modifier = Modifier
                 .height(80.dp)
                 .fillMaxWidth()
                 .padding(horizontal = 30.dp),
             typeInput = KeyboardType.Password,
-            errorText = "123"
+            errorText = passwordError.value,
+            isLastEditText = true
         )
         Spacing(70)
         SingleButton(
             onClick = {
-                onSignUpSuccess()
+                firstClick.value = false
+                launchViewModel.insertUser(
+                    User(
+                        email = email.value.trim(),
+                        password = password.value.trim(),
+                        name = email.value.trim().split("@")[0]
+                    ),
+                    onStart = {
+
+                    },
+                    onResult = {
+                        onSignUpSuccess()
+                    }
+                )
             },
             modifier = Modifier
                 .padding(horizontal = 30.dp)

@@ -14,3 +14,11 @@ object SignUpView : PostDestination {
     //    override val icon = Icons.Filled.
     override val route = "signUp"
 }
+
+object NewFeedRoute : PostDestination {
+    override val route = "newFeed"
+}
+
+object NewFeedView : PostDestination {
+    override val route = "Home"
+}

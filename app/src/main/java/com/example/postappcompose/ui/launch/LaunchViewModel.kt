@@ -13,18 +13,17 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
-import javax.inject.Singleton
 
 @HiltViewModel
-@Singleton
 class LaunchViewModel @Inject constructor(
     private val userRepository: UserRepository
 ) : ViewModel() {
 
-    internal val email = mutableStateOf("")
-    internal val password = mutableStateOf("")
-    internal val errorMail = mutableStateOf("")
-    internal val errorPass = mutableStateOf("")
+    companion object {
+        internal val email = mutableStateOf("")
+        internal val password = mutableStateOf("")
+    }
+    internal var firstClickButton = mutableStateOf(true)
 
     fun loginUser(
         email: String,
@@ -62,8 +61,8 @@ class LaunchViewModel @Inject constructor(
         }
     }
 
-    fun validEmail(mail: String): String = if (EMAIL_ADDRESS.matches(mail)) "" else "Email is Valid"
+    fun validEmail(mail: String): String = if (EMAIL_ADDRESS.matches(mail) || firstClickButton.value) "" else "Email is Valid"
 
     fun validPassWord(pass: String): String =
-        if (PASSWORD.matches(pass)) "" else "Wrong password format"
+        if (PASSWORD.matches(pass) || firstClickButton.value) "" else "Wrong password format"
 }
