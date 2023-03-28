@@ -23,6 +23,22 @@ object TextStyleApp {
             background = Color.Transparent
         )
     }
+
+    fun textTitleBlack(
+        fontSize: Int = 17,
+        textAlign: TextAlign = TextAlign.Center
+    ) : TextStyle {
+        return TextStyle(
+            color = Color.White,
+            fontSize = fontSize.sp,
+            textAlign = textAlign,
+            fontWeight = FontWeight.Bold,
+            fontFamily = FontFamily.Serif,
+            background = Color.Transparent
+        )
+    }
+
+
     val textError = TextStyle(
         color = Color.Red,
         fontSize = 14.sp,
