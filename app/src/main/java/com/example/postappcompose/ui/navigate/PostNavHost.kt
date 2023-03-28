@@ -95,7 +95,10 @@ fun PostNavHost(
     }
 }
 
-fun NavHostController.navigateSingleTopTo(route: String) =
+fun NavHostController.navigateSingleTopTo(
+    route: String,
+    beforeNavigated: () -> Unit = {}
+) =
     this.navigate(route) {
         // Pop up to the start destination of the graph to
         // avoid building up a large stack of destinations
@@ -110,4 +113,5 @@ fun NavHostController.navigateSingleTopTo(route: String) =
         launchSingleTop = true
         // Restore state when reselecting a previously selected item
         restoreState = true
+        beforeNavigated.invoke()
     }

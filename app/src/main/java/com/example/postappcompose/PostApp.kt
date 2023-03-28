@@ -57,7 +57,11 @@ fun PostBottomBar(
                     selected = currentRoute == tab.route,
                     onClick = {
                         if (tab.route != currentRoute) {
-                            navController.navigateSingleTopTo(tab.route)
+                            navController.run {
+                                navigateSingleTopTo(tab.route) {
+                                    popBackStack()
+                                }
+                            }
                         }
                     },
                     alwaysShowLabel = false,
