@@ -2,27 +2,33 @@ package com.example.postappcompose.ui.newfeed.items
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import androidx.constraintlayout.compose.Visibility
 import coil.compose.AsyncImage
 import com.example.postappcompose.R
 import com.example.postappcompose.data.models.Post
 import com.example.postappcompose.data.models.User
+import com.example.postappcompose.ui.component.BorderLine
 import com.example.postappcompose.ui.textstyle.TextStyleApp
+import com.example.postappcompose.ui.theme.PostAppTheme
 import com.test.test_by_anh_phu.bai1.data.bai1.models.PostWithFavorite
 
 @Composable
@@ -34,6 +40,7 @@ fun PostItem(
         modifier = modifier
             .background(Color.Transparent)
             .fillMaxWidth()
+            .wrapContentHeight()
     ) {
         var isShown by remember {
             mutableStateOf(true)
@@ -46,7 +53,7 @@ fun PostItem(
             tvContentPost,
             tvTime,
             tvLinkTweet,
-            border_post,
+            borderPost,
             btnFavorite,
             tvTotalLike,
             borderEnd
@@ -103,6 +110,105 @@ fun PostItem(
                     isShown = !isShown
                 }
         )
+
+        Text(
+            text = item.post.content,
+            style = TextStyleApp.textColorBlack(22, TextAlign.Start),
+            modifier = Modifier
+                .padding(horizontal = 20.dp)
+                .fillMaxSize()
+                .wrapContentHeight()
+                .constrainAs(tvContentPost) {
+                    top.linkTo(imgUser.bottom, 25.dp)
+                    visibility = if (isShown) Visibility.Visible else Visibility.Gone
+                },
+        )
+
+        Text(
+            text = item.post.time_Create,
+            style = TextStyleApp.textColorBlack(16, TextAlign.Start),
+            modifier = Modifier
+                .padding(horizontal = 20.dp)
+                .fillMaxSize()
+                .wrapContentHeight()
+                .constrainAs(tvTime) {
+                    top.linkTo(tvContentPost.bottom, 40.dp)
+                    start.linkTo(parent.start, 20.dp)
+                    visibility = if (isShown) Visibility.Visible else Visibility.Gone
+                },
+        )
+
+        Text(
+            text = stringResource(id = R.string.twitter),
+            style = TextStyleApp.textColorGray(
+                16,
+                TextAlign.Start,
+                PostAppTheme.colors.colorNationBlue
+            ),
+            modifier = Modifier
+                .padding(horizontal = 20.dp)
+                .fillMaxSize()
+                .wrapContentHeight()
+                .constrainAs(tvLinkTweet) {
+                    top.linkTo(tvTime.bottom)
+                    bottom.linkTo(tvTime.bottom)
+                    start.linkTo(tvTime.end)
+                    visibility = if (isShown) Visibility.Visible else Visibility.Gone
+                },
+        )
+
+        BorderLine(
+            modifier = Modifier
+                .padding(horizontal = 20.dp)
+                .constrainAs(borderPost) {
+                    top.linkTo(tvTime.bottom, 15.dp)
+                    visibility = if (isShown) Visibility.Visible else Visibility.Gone
+                }
+        )
+
+        IconButton(
+            onClick = {
+
+            },
+            modifier = Modifier
+                .size(25.dp)
+                .constrainAs(btnFavorite) {
+                    top.linkTo(borderPost.bottom, 15.dp)
+                    start.linkTo(parent.start, 20.dp)
+                    visibility = if (isShown) Visibility.Visible else Visibility.Gone
+                }
+        ) {
+            Icon(
+                Icons.Default.Favorite,
+                contentDescription = null,
+                modifier = Modifier.fillMaxSize()
+            )
+        }
+
+        Text(
+            text = item.listUser.size.toString(),
+            style = TextStyleApp.textColorGray(
+                13,
+                TextAlign.Start
+            ),
+            modifier = Modifier
+                .padding(horizontal = 20.dp)
+                .fillMaxSize()
+                .wrapContentHeight()
+                .constrainAs(tvTotalLike) {
+                    top.linkTo(btnFavorite.top)
+                    bottom.linkTo(btnFavorite.bottom)
+                    start.linkTo(btnFavorite.end)
+                    visibility = if (isShown) Visibility.Visible else Visibility.Gone
+                },
+        )
+
+        BorderLine(
+            modifier = Modifier
+                .constrainAs(borderEnd) {
+                    top.linkTo(btnFavorite.bottom, 20.dp)
+                }
+        )
     }
 }
 
@@ -111,7 +217,10 @@ fun PostItem(
 fun PreviewPostItem() {
     PostItem(
         item = PostWithFavorite(
-            Post(),
+            Post(
+                content = "Test21321323",
+                time_Create = "123",
+            ),
             User(),
             mutableListOf()
         )
