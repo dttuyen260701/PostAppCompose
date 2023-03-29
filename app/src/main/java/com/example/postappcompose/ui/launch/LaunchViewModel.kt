@@ -25,6 +25,11 @@ class LaunchViewModel @Inject constructor(
     }
     internal var firstClickButton = mutableStateOf(true)
 
+    fun clearData() {
+        email.value = ""
+        password.value = ""
+    }
+
     fun loginUser(
         email: String,
         pass: String,

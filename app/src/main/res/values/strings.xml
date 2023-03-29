@@ -39,6 +39,7 @@
     <string name="SignUpCongratulations">Congratulations</string>
     <string name="SignUpRegisterDone">You have successfully registered!!!</string>
     <string name="SignUpCancel">Cancel</string>
+    <string name="SignOutSuccess">SignOut Success</string>
     <string name="SignUpExistsEmail">Existed Email %s</string>
     <!--    // truyền là tham số trong hàm getString-->
 
@@ -58,14 +59,4 @@
     <string name="AddPostYourFeeling">How are you today?</string>
     <string name="AddPostTitle">Share your feeling</string>
     <string name="AddPostNotification">Nothing to post</string>
-
-    <!--    music app-->
-    <string name="ErrorLoadMusic">Error when load Music</string>
-    <string name="PlayFrom">Album</string>
-    <string name="timeBegin">00:00</string>
-
-    <!--    music service-->
-    <string name="Next">Next</string>
-    <string name="Play">Play</string>
-    <string name="Previous">Previous</string>
 </resources>

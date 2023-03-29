@@ -53,6 +53,7 @@ fun SignUpScreen(
     }
     Column(
         modifier = Modifier
+            .statusBarsPadding()
             .fillMaxSize()
             .background(
                 Brush.verticalGradient(

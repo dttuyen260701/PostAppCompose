@@ -5,10 +5,11 @@ import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val DarkColorPalette = PostColors(
     primary = NavyBlue,
-    primaryVariant = Purple700,
+    primaryVariant = Teal200,
     secondary = NavyBlue,
     backgroundGradient = listOf(NavyBlue, NeonBlue, NavyBlue),
     backgroundButton = listOf(HotMagenta, DarkViolet)
@@ -16,7 +17,7 @@ private val DarkColorPalette = PostColors(
 
 private val LightColorPalette = PostColors(
     primary = NavyBlue,
-    primaryVariant = Purple700,
+    primaryVariant = Teal200,
     secondary = NavyBlue,
     backgroundGradient = listOf(NavyBlue, NeonBlue, NavyBlue),
     backgroundButton = listOf(HotMagenta, DarkViolet)
@@ -46,7 +47,16 @@ fun PostAppComposeTheme(
     } else {
         LightColorPalette
     }
-
+    val systemUiController = rememberSystemUiController()
+    if(darkTheme){
+        systemUiController.setSystemBarsColor(
+            color = colors.primary
+        )
+    }else{
+        systemUiController.setSystemBarsColor(
+            color = colors.primary
+        )
+    }
     ProvidePostColors(colors = colors) {
         MaterialTheme(
             colors = debugColors(darkTheme),

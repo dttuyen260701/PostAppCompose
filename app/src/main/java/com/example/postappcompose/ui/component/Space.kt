@@ -18,3 +18,13 @@ fun Spacing(height: Int = 0) {
             .background(Color.Transparent)
     )
 }
+
+@Composable
+fun BorderLine() {
+    Spacer(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(1.dp)
+            .background(Color.Gray)
+    )
+}

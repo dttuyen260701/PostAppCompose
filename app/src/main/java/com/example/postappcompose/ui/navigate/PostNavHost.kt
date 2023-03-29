@@ -78,13 +78,26 @@ fun PostNavHost(
         ) {
             composable(PostTabs.TWEET.route) {
                 NewFeedScreen(
-                    Modifier.background(Color.Red)
+                    onSignOut = {
+                        navController.run {
+                            navigateSingleTopTo(SignInView.route) {
+                                popBackStack()
+                            }
+                        }
+                    }
                 )
             }
 
             composable(PostTabs.FAVORITE.route) {
                 NewFeedScreen(
-                    Modifier.background(Color.Green)
+                    modifier = Modifier.background(Color.Green),
+                    onSignOut = {
+                        navController.run {
+                            navigateSingleTopTo(SignInView.route) {
+                                popBackStack()
+                            }
+                        }
+                    }
                 )
             }
 

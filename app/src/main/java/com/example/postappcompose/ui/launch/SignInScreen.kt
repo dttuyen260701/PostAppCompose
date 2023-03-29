@@ -1,6 +1,5 @@
 package com.example.postappcompose.ui.launch
 
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
@@ -20,6 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.postappcompose.R
 import com.example.postappcompose.ui.component.EditText
 import com.example.postappcompose.ui.component.SingleButton
@@ -57,6 +57,7 @@ fun SignInScreen(
     }
     Column(
         modifier = Modifier
+            .statusBarsPadding()
             .fillMaxSize()
             .background(
                 Brush.verticalGradient(
@@ -139,6 +140,7 @@ fun SignInScreen(
                                     Toast.LENGTH_LONG
                                 ).show()
                                 onSignInSuccess()
+                                launchViewModel.clearData()
                             } else {
                                 Toast.makeText(
                                     context,
@@ -175,7 +177,7 @@ fun SignInScreen(
 }
 
 @Composable
-@Preview(showSystemUi = true, showBackground = true)
+@Preview
 fun PreviewLoginScreen() {
-//    SignInScreen(modifier = Modifier,{}, {})
+    SignInScreen(modifier = Modifier,{}, {}, hiltViewModel())
 }

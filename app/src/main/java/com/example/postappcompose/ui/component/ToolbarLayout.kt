@@ -7,13 +7,14 @@ import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.postappcompose.ui.textstyle.TextStyleApp
 import com.example.postappcompose.R
+import com.example.postappcompose.ui.textstyle.TextStyleApp
 
 @Composable
 fun ToolbarView(
@@ -25,19 +26,27 @@ fun ToolbarView(
     onLeftIconClick: () -> Unit = {}
 ) {
     Row(
-        modifier = modifier
+        modifier = Modifier
+            .height(56.dp)
             .fillMaxWidth()
-            .background(Color.Red),
-        horizontalArrangement = Arrangement.SpaceEvenly
+            .background(Color.White)
+            .then(modifier),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
     ) {
         IconButton(
-            onClick = onRightIconClick,
+            onClick = onLeftIconClick,
             modifier = Modifier
                 .fillMaxHeight()
-                .aspectRatio(1f, false)
+                .aspectRatio(1f, false),
+            enabled = (leftIcon != null)
         ) {
-            rightIcon?.let {
-                Icon(painterResource(id = it), contentDescription = null)
+            leftIcon?.let {
+                Icon(
+                    painterResource(id = it),
+                    modifier = Modifier.fillMaxSize().padding(10.dp),
+                    contentDescription = null
+                )
             }
         }
 
@@ -45,6 +54,21 @@ fun ToolbarView(
             text = title,
             style = TextStyleApp.textTitleBlack()
         )
+
+        IconButton(
+            onClick = onRightIconClick,
+            modifier = Modifier
+                .fillMaxHeight()
+                .aspectRatio(1f, false),
+            enabled = (rightIcon != null)
+        ) {
+            rightIcon?.let {
+                Icon(
+                    painterResource(id = it),
+                    modifier = Modifier.fillMaxSize().padding(10.dp),
+                    contentDescription = null)
+            }
+        }
     }
 }
 

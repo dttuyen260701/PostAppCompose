@@ -24,12 +24,40 @@ object TextStyleApp {
         )
     }
 
+    fun textColorBlack(
+        fontSize: Int = 13,
+        textAlign: TextAlign = TextAlign.Center
+    ) : TextStyle {
+        return TextStyle(
+            color = Color.Black,
+            fontSize = fontSize.sp,
+            textAlign = textAlign,
+            fontWeight = FontWeight.Light,
+            fontFamily = FontFamily.Serif,
+            background = Color.Transparent
+        )
+    }
+
+    fun textColorGray(
+        fontSize: Int = 13,
+        textAlign: TextAlign = TextAlign.Center
+    ) : TextStyle {
+        return TextStyle(
+            color = Color.Black.copy(alpha = 0.7f),
+            fontSize = fontSize.sp,
+            textAlign = textAlign,
+            fontWeight = FontWeight.Light,
+            fontFamily = FontFamily.Serif,
+            background = Color.Transparent
+        )
+    }
+
     fun textTitleBlack(
         fontSize: Int = 17,
         textAlign: TextAlign = TextAlign.Center
     ) : TextStyle {
         return TextStyle(
-            color = Color.White,
+            color = Color.Black,
             fontSize = fontSize.sp,
             textAlign = textAlign,
             fontWeight = FontWeight.Bold,
