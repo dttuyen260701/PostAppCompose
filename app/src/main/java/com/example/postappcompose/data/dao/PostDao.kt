@@ -2,7 +2,7 @@ package com.example.postappcompose.data.dao
 
 import androidx.room.*
 import com.example.postappcompose.data.models.Post
-import com.test.test_by_anh_phu.bai1.data.bai1.models.PostWithFavorite
+import com.example.postappcompose.data.models.PostWithFavorite
 
 @Dao
 interface PostDao {

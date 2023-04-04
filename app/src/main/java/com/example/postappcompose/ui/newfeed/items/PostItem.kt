@@ -3,6 +3,8 @@ package com.example.postappcompose.ui.newfeed.items
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
@@ -13,6 +15,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -22,8 +25,10 @@ import coil.compose.AsyncImage
 import com.example.postappcompose.R
 import com.example.postappcompose.data.models.Post
 import com.example.postappcompose.data.models.User
+import com.example.postappcompose.ui.component.BorderLine
 import com.example.postappcompose.ui.textstyle.TextStyleApp
-import com.test.test_by_anh_phu.bai1.data.bai1.models.PostWithFavorite
+import com.example.postappcompose.ui.theme.PostAppTheme
+import com.example.postappcompose.data.models.PostWithFavorite
 
 @Composable
 fun PostItem(
@@ -46,7 +51,7 @@ fun PostItem(
             tvContentPost,
             tvTime,
             tvLinkTweet,
-            border_post,
+            borderPost,
             btnFavorite,
             tvTotalLike,
             borderEnd
@@ -103,6 +108,85 @@ fun PostItem(
                     isShown = !isShown
                 }
         )
+
+        Text(
+            text = item.post.content,
+            style = TextStyleApp.textColorBlack(13, TextAlign.Start),
+            modifier = Modifier
+                .constrainAs(tvContentPost) {
+                    top.linkTo(imgUser.bottom, 25.dp)
+                }
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp)
+        )
+
+        Text(
+            text = item.post.time_Create,
+            style = TextStyleApp.textColorBlack(16, TextAlign.Start),
+            modifier = Modifier
+                .constrainAs(tvTime) {
+                    top.linkTo(tvContentPost.bottom, 40.dp)
+                    start.linkTo(parent.start, 20.dp)
+                    width = Dimension.preferredWrapContent
+                }
+        )
+
+        Text(
+            text = stringResource(R.string.twitter),
+            style = TextStyleApp.textColorBlack(16, TextAlign.Start),
+            color = PostAppTheme.colors.primaryVariant,
+            modifier = Modifier
+                .constrainAs(tvLinkTweet) {
+                    top.linkTo(tvTime.top)
+                    bottom.linkTo(tvTime.bottom)
+                    start.linkTo(tvTime.end, 5.dp)
+                    width = Dimension.preferredWrapContent
+                }
+        )
+
+        BorderLine(
+            modifier = Modifier
+                .constrainAs(borderPost) {
+                    top.linkTo(tvLinkTweet.bottom, 15.dp)
+                }
+                .padding(horizontal = 20.dp)
+                .height(0.33.dp)
+        )
+
+        Icon(
+            painter = painterResource(id = R.drawable.ic_favorite),
+            contentDescription = null,
+            modifier = Modifier
+                .size(25.dp)
+                .constrainAs(btnFavorite) {
+                    top.linkTo(borderPost.top, 15.dp)
+                    start.linkTo(parent.start, 20.dp)
+                }
+                .clickable {
+
+                }
+        )
+
+        Text(
+            text = item.listUser.size.toString(),
+            style = TextStyleApp.textColorBlack(13, TextAlign.Start),
+            color = PostAppTheme.colors.primaryVariant,
+            modifier = Modifier
+                .constrainAs(tvTotalLike) {
+                    top.linkTo(btnShowHide.top)
+                    bottom.linkTo(btnShowHide.bottom)
+                    start.linkTo(btnShowHide.end, 5.dp)
+                    width = Dimension.preferredWrapContent
+                }
+        )
+
+        BorderLine(
+            modifier = Modifier
+                .constrainAs(borderEnd) {
+                    top.linkTo(btnFavorite.bottom, 20.dp)
+                }
+        )
+
     }
 }
 
@@ -111,7 +195,12 @@ fun PostItem(
 fun PreviewPostItem() {
     PostItem(
         item = PostWithFavorite(
-            Post(),
+            Post(
+                iD_Post = 1,
+                iD_User_Create = 2,
+                content = " 12312313123 ",
+                time_Create = "12/03/2023 12:45"
+            ),
             User(),
             mutableListOf()
         )

@@ -3,7 +3,7 @@ package com.example.postappcompose.data.repository
 import androidx.annotation.WorkerThread
 import com.example.postappcompose.data.dao.PostDao
 import com.example.postappcompose.data.models.Post
-import com.test.test_by_anh_phu.bai1.data.bai1.models.PostWithFavorite
+import com.example.postappcompose.data.models.PostWithFavorite
 import javax.inject.Inject
 
 /*

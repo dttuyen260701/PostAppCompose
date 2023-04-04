@@ -1,4 +1,4 @@
-package com.test.test_by_anh_phu.bai1.data.bai1.models
+package com.example.postappcompose.data.models
 
 import androidx.room.Embedded
 import androidx.room.Junction

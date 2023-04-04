@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
@@ -19,7 +20,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.postappcompose.R
+import com.example.postappcompose.data.models.Post
+import com.example.postappcompose.data.models.PostWithFavorite
+import com.example.postappcompose.data.models.User
 import com.example.postappcompose.ui.component.ToolbarView
+import com.example.postappcompose.ui.newfeed.items.PostItem
 import com.example.postappcompose.ui.theme.PostAppTheme
 
 @Composable
@@ -61,7 +66,12 @@ fun NewFeedScreen(
                 .fillMaxSize(),
             state = listState
         ) {
-
+            items(
+                initData(),
+                key = { postWF -> postWF.post.iD_Post }
+            ) { post ->
+                PostItem(item = post)
+            }
         }
         FloatingActionButton(
             onClick = {
@@ -82,6 +92,25 @@ fun NewFeedScreen(
             )
         }
     }
+}
+
+fun initData(): MutableList<PostWithFavorite> {
+    val listData: MutableList<PostWithFavorite> = mutableListOf()
+    for (i in 1..20) {
+        listData.add(
+            PostWithFavorite(
+                Post(
+                    iD_Post = i,
+                    iD_User_Create = i,
+                    content = "Content Test Compose App $i",
+                    time_Create = "12/03/2023 12:45"
+                ),
+                User(),
+                mutableListOf()
+            )
+        )
+    }
+    return listData
 }
 
 @Composable
