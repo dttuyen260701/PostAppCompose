@@ -10,6 +10,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 private val DarkColorPalette = PostColors(
     primary = NavyBlue,
     primaryVariant = Teal200,
+    colorNationBlue = UnitedNationBlue,
     secondary = NavyBlue,
     backgroundGradient = listOf(NavyBlue, NeonBlue, NavyBlue),
     backgroundButton = listOf(HotMagenta, DarkViolet)
@@ -18,6 +19,7 @@ private val DarkColorPalette = PostColors(
 private val LightColorPalette = PostColors(
     primary = NavyBlue,
     primaryVariant = Teal200,
+    colorNationBlue = UnitedNationBlue,
     secondary = NavyBlue,
     backgroundGradient = listOf(NavyBlue, NeonBlue, NavyBlue),
     backgroundButton = listOf(HotMagenta, DarkViolet)
@@ -72,12 +74,15 @@ class PostColors(
     primary: Color,
     primaryVariant: Color,
     secondary: Color,
+    colorNationBlue: Color,
     backgroundGradient: List<Color>,
     backgroundButton: List<Color>
 ) {
     var primary by mutableStateOf(primary)
         private set
     var primaryVariant by mutableStateOf(primaryVariant)
+        private set
+    var colorNationBlue by mutableStateOf(colorNationBlue)
         private set
     var secondary by mutableStateOf(secondary)
         private set
@@ -89,6 +94,7 @@ class PostColors(
     fun update(other: PostColors) {
         primary = other.primary
         primaryVariant = other.primaryVariant
+        colorNationBlue = other.colorNationBlue
         secondary = other.secondary
         backgroundGradient = other.backgroundGradient
         backgroundButton = other.backgroundButton
@@ -97,6 +103,7 @@ class PostColors(
     fun copy(): PostColors = PostColors(
         primary = primary,
         primaryVariant = primaryVariant,
+        colorNationBlue = colorNationBlue,
         secondary = secondary,
         backgroundGradient = backgroundGradient,
         backgroundButton = backgroundButton

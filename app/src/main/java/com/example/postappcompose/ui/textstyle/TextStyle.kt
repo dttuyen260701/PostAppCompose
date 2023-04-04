@@ -40,10 +40,11 @@ object TextStyleApp {
 
     fun textColorGray(
         fontSize: Int = 13,
-        textAlign: TextAlign = TextAlign.Center
+        textAlign: TextAlign = TextAlign.Center,
+        color: Color = Color.Black.copy(alpha = 0.7f)
     ) : TextStyle {
         return TextStyle(
-            color = Color.Black.copy(alpha = 0.7f),
+            color = color,
             fontSize = fontSize.sp,
             textAlign = textAlign,
             fontWeight = FontWeight.Light,
