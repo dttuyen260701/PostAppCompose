@@ -29,6 +29,7 @@ import com.example.postappcompose.ui.component.BorderLine
 import com.example.postappcompose.ui.textstyle.TextStyleApp
 import com.example.postappcompose.ui.theme.PostAppTheme
 import com.example.postappcompose.data.models.PostWithFavorite
+import com.example.postappcompose.extension.setVisibility
 
 @Composable
 fun PostItem(
@@ -115,6 +116,7 @@ fun PostItem(
             modifier = Modifier
                 .constrainAs(tvContentPost) {
                     top.linkTo(imgUser.bottom, 25.dp)
+                    visibility = setVisibility(isShown)
                 }
                 .fillMaxWidth()
                 .padding(horizontal = 20.dp)
@@ -128,6 +130,7 @@ fun PostItem(
                     top.linkTo(tvContentPost.bottom, 40.dp)
                     start.linkTo(parent.start, 20.dp)
                     width = Dimension.preferredWrapContent
+                    visibility = setVisibility(isShown)
                 }
         )
 
@@ -141,6 +144,7 @@ fun PostItem(
                     bottom.linkTo(tvTime.bottom)
                     start.linkTo(tvTime.end, 5.dp)
                     width = Dimension.preferredWrapContent
+                    visibility = setVisibility(isShown)
                 }
         )
 
@@ -148,6 +152,7 @@ fun PostItem(
             modifier = Modifier
                 .constrainAs(borderPost) {
                     top.linkTo(tvLinkTweet.bottom, 15.dp)
+                    visibility = setVisibility(isShown)
                 }
                 .padding(horizontal = 20.dp)
                 .height(0.33.dp)
@@ -161,6 +166,7 @@ fun PostItem(
                 .constrainAs(btnFavorite) {
                     top.linkTo(borderPost.top, 15.dp)
                     start.linkTo(parent.start, 20.dp)
+                    visibility = setVisibility(isShown)
                 }
                 .clickable {
 
@@ -173,17 +179,18 @@ fun PostItem(
             color = PostAppTheme.colors.primaryVariant,
             modifier = Modifier
                 .constrainAs(tvTotalLike) {
-                    top.linkTo(btnShowHide.top)
-                    bottom.linkTo(btnShowHide.bottom)
-                    start.linkTo(btnShowHide.end, 5.dp)
+                    top.linkTo(btnFavorite.top)
+                    bottom.linkTo(btnFavorite.bottom)
+                    start.linkTo(btnFavorite.end, 5.dp)
                     width = Dimension.preferredWrapContent
+                    visibility = setVisibility(isShown)
                 }
         )
 
         BorderLine(
             modifier = Modifier
                 .constrainAs(borderEnd) {
-                    top.linkTo(btnFavorite.bottom, 20.dp)
+                    top.linkTo(if(isShown) btnFavorite.bottom else imgUser.bottom, 20.dp)
                 }
         )
 

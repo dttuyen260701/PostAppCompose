@@ -31,6 +31,7 @@ import com.example.postappcompose.ui.theme.PostAppTheme
 fun NewFeedScreen(
     modifier: Modifier = Modifier,
     onSignOut: () -> Unit,
+    openAddScreen: () -> Unit
 ) {
     val context = LocalContext.current
     val listState = rememberLazyListState()
@@ -74,9 +75,7 @@ fun NewFeedScreen(
             }
         }
         FloatingActionButton(
-            onClick = {
-
-            },
+            onClick = openAddScreen,
             modifier = Modifier
                 .size(56.dp)
                 .constrainAs(btnAdd) {
@@ -116,8 +115,6 @@ fun initData(): MutableList<PostWithFavorite> {
 @Composable
 @Preview
 fun PreviewLoginScreen() {
-    NewFeedScreen {
-
-    }
+    NewFeedScreen (onSignOut = {}, openAddScreen = {})
 }
 

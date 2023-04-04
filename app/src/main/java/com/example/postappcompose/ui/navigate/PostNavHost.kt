@@ -84,6 +84,9 @@ fun PostNavHost(
                                 popBackStack()
                             }
                         }
+                    },
+                    openAddScreen = {
+                        navController.navigate(AddPost.route)
                     }
                 )
             }
@@ -97,12 +100,19 @@ fun PostNavHost(
                                 popBackStack()
                             }
                         }
+                    },
+                    openAddScreen = {
+                        navController.navigate(AddPost.route)
                     }
                 )
             }
 
             composable(AddPost.route) {
-                AddPostScreen()
+                AddPostScreen(
+                    backToNewFeed = {
+                        navController.popBackStack()
+                    }
+                )
             }
         }
     }
