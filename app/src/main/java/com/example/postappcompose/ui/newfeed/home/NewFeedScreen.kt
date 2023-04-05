@@ -24,15 +24,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import com.example.postappcompose.R
-import com.example.postappcompose.data.models.Post
 import com.example.postappcompose.data.models.PostWithFavorite
-import com.example.postappcompose.data.models.User
 import com.example.postappcompose.ui.component.ToolbarView
 import com.example.postappcompose.ui.newfeed.PostViewModel
 import com.example.postappcompose.ui.newfeed.items.PostItem
 import com.example.postappcompose.ui.theme.PostAppTheme
 import com.example.postappcompose.utils.Constant
-import kotlinx.coroutines.launch
 
 @Composable
 fun NewFeedScreen(
@@ -43,18 +40,13 @@ fun NewFeedScreen(
 ) {
 
     val lifecycleOwner = LocalLifecycleOwner.current
-    val coroutineScope = rememberCoroutineScope()
     val context = LocalContext.current
     val listState = rememberLazyListState()
-    val listData = remember {
+    var listData = remember {
         mutableListOf<PostWithFavorite>().toMutableStateList()
     }
     postViewModel.getPostData().observe(lifecycleOwner) {
-        listData.clear()
-        listData.addAll(it)
-        coroutineScope.launch {
-//            listState.animateScrollToItem(index = listData.lastIndex)
-        }
+        listData = it.toMutableStateList()
     }
     ConstraintLayout(
         modifier = Modifier
