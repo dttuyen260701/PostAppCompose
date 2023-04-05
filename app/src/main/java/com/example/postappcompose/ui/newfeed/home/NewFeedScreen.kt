@@ -11,30 +11,51 @@ import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import com.example.postappcompose.R
 import com.example.postappcompose.data.models.Post
 import com.example.postappcompose.data.models.PostWithFavorite
 import com.example.postappcompose.data.models.User
 import com.example.postappcompose.ui.component.ToolbarView
+import com.example.postappcompose.ui.newfeed.PostViewModel
 import com.example.postappcompose.ui.newfeed.items.PostItem
 import com.example.postappcompose.ui.theme.PostAppTheme
+import com.example.postappcompose.utils.Constant
+import kotlinx.coroutines.launch
 
 @Composable
 fun NewFeedScreen(
     modifier: Modifier = Modifier,
     onSignOut: () -> Unit,
-    openAddScreen: () -> Unit
+    openAddScreen: () -> Unit,
+    postViewModel: PostViewModel
 ) {
+
+    val lifecycleOwner = LocalLifecycleOwner.current
+    val coroutineScope = rememberCoroutineScope()
     val context = LocalContext.current
     val listState = rememberLazyListState()
+    val listData = remember {
+        mutableListOf<PostWithFavorite>().toMutableStateList()
+    }
+    postViewModel.getPostData().observe(lifecycleOwner) {
+        listData.clear()
+        listData.addAll(it)
+        coroutineScope.launch {
+//            listState.animateScrollToItem(index = listData.lastIndex)
+        }
+    }
     ConstraintLayout(
         modifier = Modifier
             .statusBarsPadding()
@@ -68,7 +89,7 @@ fun NewFeedScreen(
             state = listState
         ) {
             items(
-                initData(),
+                listData,
                 key = { postWF -> postWF.post.iD_Post }
             ) { post ->
                 PostItem(item = post)
@@ -91,30 +112,38 @@ fun NewFeedScreen(
             )
         }
     }
-}
 
-fun initData(): MutableList<PostWithFavorite> {
-    val listData: MutableList<PostWithFavorite> = mutableListOf()
-    for (i in 1..20) {
-        listData.add(
-            PostWithFavorite(
-                Post(
-                    iD_Post = i,
-                    iD_User_Create = i,
-                    content = "Content Test Compose App $i",
-                    time_Create = "12/03/2023 12:45"
-                ),
-                User(),
-                mutableListOf()
-            )
-        )
+    DisposableEffect(lifecycleOwner) {
+        // Create an observer that triggers our remembered callbacks
+        // for sending analytics events
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_RESUME) {
+                postViewModel.getPost(
+                    isReload = true,
+                    id = Constant.userWithFavorite.user.iD_User,
+                    onStart = {
+
+                    },
+                    onResult = {
+
+                    }
+                )
+            }
+        }
+
+        // Add the observer to the lifecycle
+        lifecycleOwner.lifecycle.addObserver(observer)
+
+        // When the effect leaves the Composition, remove the observer
+        onDispose {
+            lifecycleOwner.lifecycle.removeObserver(observer)
+        }
     }
-    return listData
 }
 
 @Composable
 @Preview
 fun PreviewLoginScreen() {
-    NewFeedScreen (onSignOut = {}, openAddScreen = {})
+    NewFeedScreen (onSignOut = {}, openAddScreen = {}, postViewModel = hiltViewModel())
 }
 

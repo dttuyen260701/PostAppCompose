@@ -38,7 +38,8 @@ fun ToolbarView(
             onClick = onLeftIconClick,
             modifier = Modifier
                 .fillMaxHeight()
-                .aspectRatio(1f, false),
+                .aspectRatio(1f, false)
+                .padding(5.dp),
             enabled = (leftIcon != null)
         ) {
             leftIcon?.let {
@@ -59,7 +60,8 @@ fun ToolbarView(
             onClick = onRightIconClick,
             modifier = Modifier
                 .fillMaxHeight()
-                .aspectRatio(1f, false),
+                .aspectRatio(1f, false)
+                .padding(5.dp),
             enabled = (rightIcon != null)
         ) {
             rightIcon?.let {

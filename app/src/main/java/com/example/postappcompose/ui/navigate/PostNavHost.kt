@@ -77,6 +77,9 @@ fun PostNavHost(
             route = NewFeedRoute.route
         ) {
             composable(PostTabs.TWEET.route) {
+                val tweetPostEntry = remember(it) {
+                    navController.getBackStackEntry(PostTabs.TWEET.route)
+                }
                 NewFeedScreen(
                     onSignOut = {
                         navController.run {
@@ -87,11 +90,17 @@ fun PostNavHost(
                     },
                     openAddScreen = {
                         navController.navigate(AddPost.route)
-                    }
+                    },
+                    postViewModel = hiltViewModel(
+                        tweetPostEntry
+                    )
                 )
             }
 
             composable(PostTabs.FAVORITE.route) {
+                val favoritePostEntry = remember(it) {
+                    navController.getBackStackEntry(PostTabs.FAVORITE.route)
+                }
                 NewFeedScreen(
                     modifier = Modifier.background(Color.Green),
                     onSignOut = {
@@ -103,15 +112,24 @@ fun PostNavHost(
                     },
                     openAddScreen = {
                         navController.navigate(AddPost.route)
-                    }
+                    },
+                    postViewModel = hiltViewModel(
+                        favoritePostEntry
+                    )
                 )
             }
 
             composable(AddPost.route) {
+                val addPostEntry = remember(it) {
+                    navController.getBackStackEntry(AddPost.route)
+                }
                 AddPostScreen(
                     backToNewFeed = {
                         navController.popBackStack()
-                    }
+                    },
+                    postViewModel = hiltViewModel(
+                        addPostEntry
+                    )
                 )
             }
         }

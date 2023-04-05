@@ -1,5 +1,6 @@
 package com.example.postappcompose.ui.newfeed
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -32,6 +33,8 @@ class PostViewModel @Inject constructor(
         private var isEndPost = false
         private var isEndFavorite = false
     }
+
+    internal val content = mutableStateOf("")
 
     fun getPostData(): LiveData<MutableList<PostWithFavorite>> = listPost
 
